@@ -8,12 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using PdfFileHandler.Interfaces;
+using PdfFileHandler.Logic;
+using PdfSharp.Pdf;
 
 namespace PdfSplitter
 {
     public partial class Form1 : Form
     {
         private string filePath;
+        private IPdfDocumentHandler _pdfDocHandler = new PdfDocumentHandler();
+        private IPageExtractor _pageExtractor = new PageExtractor();
 
         public Form1()
         {
@@ -86,7 +92,7 @@ namespace PdfSplitter
                            int endIdx = Int32.Parse(range[1]);
                            while (startIdx <= endIdx)
                            {
-                               fileContent += startIdx.ToString() + " ";
+                               fileContent += startIdx + " ";
                                pageNumbers.Add(startIdx);
                                startIdx++;
                            }
@@ -99,6 +105,21 @@ namespace PdfSplitter
                    }
                    pagesToExtract.Add(name, pageNumbers);
                    MessageBox.Show(fileContent, "File Name will be: " + name, MessageBoxButtons.OK);
+               }
+            }
+
+            if (pagesToExtract.Count != 0)
+            {
+               PdfDocument pd = _pdfDocHandler.GetPdfDocumentFromPath(filePath);
+               foreach (var item in _pageExtractor.PageExtraction(pd, pagesToExtract))
+               {
+                   PdfDocument newPDF = new PdfDocument();
+                   foreach (var page in item.Value)
+                   {
+                       newPDF.AddPage(page);
+                   }
+
+                   _pdfDocHandler.SavePdfFile(item.Key + ".pdf", newPDF);
                }
             }
         }

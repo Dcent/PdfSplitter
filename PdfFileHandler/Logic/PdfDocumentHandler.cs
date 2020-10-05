@@ -8,9 +8,9 @@ using PdfSharp.Pdf.IO;
 
 namespace PdfFileHandler.Logic
 {
-    class PdfDocumentHandler : IPdfDocumentHandler
+    public class PdfDocumentHandler : IPdfDocumentHandler
     {
-        public PdfDocument getPdfDocumentFromPath(string path)
+        public PdfDocument GetPdfDocumentFromPath(string path)
         {
             PdfDocument inputDocument = PdfReader.Open(path, PdfDocumentOpenMode.Import);
             return inputDocument;
@@ -27,6 +27,19 @@ namespace PdfFileHandler.Logic
             }
 
             return pdfs;
+        }
+
+        public bool SavePdfFile(string name, PdfDocument pd)
+        {
+            try
+            {
+                pd.Save(name);
+                return true;
+            }
+            catch (IOException)
+            {
+                return false;
+            }
         }
     }
 }

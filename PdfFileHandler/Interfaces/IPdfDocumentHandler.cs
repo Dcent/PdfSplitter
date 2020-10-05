@@ -7,8 +7,10 @@ namespace PdfFileHandler.Interfaces
 {
    public interface IPdfDocumentHandler
    {
-       PdfDocument getPdfDocumentFromPath(string path);
+       PdfDocument GetPdfDocumentFromPath(string path);
 
        List<PdfDocument> GetAllPdfDocuments(string folder);
+
+       bool SavePdfFile(string name, PdfDocument pd);
    }
 }

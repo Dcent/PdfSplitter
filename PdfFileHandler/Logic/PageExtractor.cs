@@ -19,7 +19,7 @@ namespace PdfFileHandler.Logic
                     List<PdfPage> pages = new List<PdfPage>();
                     foreach (int pageNum in items.Value)
                     {
-                        PdfPage page = pd.Pages[pageNum];
+                        PdfPage page = pd.Pages[pageNum -1];
                         pages.Add(page);
                     }
                     extractedPages.Add(items.Key, pages);

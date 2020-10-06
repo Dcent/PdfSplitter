@@ -248,42 +248,7 @@ ModelManifest.xml
 .idea/
 
 # Generated files
-SolarB2bEpiserver/SolarB2bEpiserver/Content/js/
-/SolarB2bEpiserver/SolarB2bEpiserver/License.config
-/SolarB2bEpiserver/Episerver/Mediachase.Commerce.Website
 .vscode
-/SolarB2bEpiserver/SolarB2bEpiserver.Commerce/ImportExportRepository/ECApplication/catalog/inRiverExport_B2BDK_20161003-093028.zip
-/SolarB2bEpiserver/SolarB2bEpiserver.Commerce/App_Data/Search/ECApplication/ECApplication/catalog
-/SolarB2bEpiserver/SolarB2bEpiserver.Commerce/ImportExportRepository/ECApplication/csv/rule
-/SolarB2bEpiserver/SolarB2bEpiserver/local-resources
-/SolarB2bEpiserver/SolarB2bEpiserver.Commerce/ImportExportRepository/ECApplication/catalog
-/SolarB2bEpiserver/SolarB2bEpiserver/Scripts/frontend-deliverables
-/SolarB2bEpiserver/SolarB2bEpiserver/.material-cache/
 
 # Datafiles used in tools
-/SolarB2bEpiserver/Tools/GenerateCatalogMassValidationFileCSV/GenerateCatalogMassValidationFileCSV/bin/Debug/Catalog.xml
-/SolarB2bEpiserver/Tools/CatalogValidation/bin/Debug/Catalog.xml 
-/SolarB2bEpiserver/Tools/CatalogValidation/bin/Debug/Pim_catalog.csv
-/SolarB2bEpiserver/Tools/CatalogValidation/bin/Debug/Episerver_catalog.csv
-/CatalogValidation*
 package-lock.json
-/SolarB2bEpiserver/SolarB2bEpiserver/App_Data/UnhandledExceptions
-/SolarB2bEpiserver/SolarB2bEpiserver/App_Data/log4net.txt
-/SolarB2bEpiserver/SolarB2bEpiserver/App_Data/SolisConfigBackup/
-**/App_Data/*log4net.txt
-/SolarB2bEpiserver/SolarB2bEpiserver/App_Data/SE Webshop TEST2.xml
-
-# Lighthouse Audit modules
-/LighthouseAudit/node_modules/
-
-*.orig
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/test-results
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/emails/dist
-SolarB2bEpiserver/SolarB2bEpiserver/coverage
-SolarB2bEpiserver/SolarB2bEpiserver/test-results
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/fractal/dist
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/backstop/backstop_data/bitmaps_reference
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/backstop/backstop_data/bitmaps_test
-SolarB2bEpiserver/SolarB2bEpiserver/frontend/backstop/backstop_data/html_report
-/SolarB2bEpiserver/SolarB2bEpiserver/frontend/scripts/stencil/test-results/
-/SolarB2bEpiserver/SolarB2bEpiserver/Scripts/stencil/test-results/

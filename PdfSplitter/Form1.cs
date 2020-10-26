@@ -20,11 +20,24 @@ namespace PdfSplitter
         private string filePath;
         private IPdfDocumentHandler _pdfDocHandler = new PdfDocumentHandler();
         private IPageExtractor _pageExtractor = new PageExtractor();
+        private string outputFolder = "c:/PDF";
 
         public Form1()
         {
             InitializeComponent();
             btnRemoveSelected.Visible = false;
+            outputLbl.Text = "";
+            lblFilePath.Text = "";
+        }
+
+        private void outputBtn_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
+            {
+                DialogResult result = openFolderDialog.ShowDialog();
+                outputLbl.Text = openFolderDialog.SelectedPath;
+                outputFolder = openFolderDialog.SelectedPath;
+            }
         }
 
         private void BtnOpenFile_Click(object sender, EventArgs e)
@@ -73,55 +86,89 @@ namespace PdfSplitter
         private void btnSplit_Click(object sender, EventArgs e)
         {
            
+            Dictionary<string, List<int>> pagesToExtract = CreatePdfFilesList();
+
+            extractAndCreatePdfs(pagesToExtract);
+
+        }
+
+        private void extractAndCreatePdfs(Dictionary<string, List<int>> pagesToExtract)
+        {
+            if (pagesToExtract.Count != 0)
+            {
+                PdfDocument pd = _pdfDocHandler.GetPdfDocumentFromPath(filePath);
+                foreach (var item in _pageExtractor.PageExtraction(pd, pagesToExtract))
+                {
+                    PdfDocument newPDF = new PdfDocument();
+                    foreach (var page in item.Value)
+                    {
+                        newPDF.AddPage(page);
+                    }
+                    CreateOutputFolder();
+                    _pdfDocHandler.SavePdfFile(outputFolder + "/" + item.Key + ".pdf", newPDF);
+                }
+            }
+        }
+
+        private Dictionary<string, List<int>> CreatePdfFilesList()
+        {
             Dictionary<string, List<int>> pagesToExtract = new Dictionary<string, List<int>>();
             foreach (var listbDatasetItem in listbDataset.Items)
             {
-               string fileContent = "";
-               List<int> pageNumbers = new List<int>();
-               string[] data = listbDatasetItem.ToString().Split(':');
-               if (data.Length != 0)
-               {
-                   string name = data[0];
-                   string pages = data[1];
-                   foreach (string s in pages.Split(','))
-                   {
-                       if (s.Contains('-'))
-                       {
-                           string[] range = s.Split('-');
-                           int startIdx = Int32.Parse(range[0]);
-                           int endIdx = Int32.Parse(range[1]);
-                           while (startIdx <= endIdx)
-                           {
-                               fileContent += startIdx + " ";
-                               pageNumbers.Add(startIdx);
-                               startIdx++;
-                           }
-                       }
-                       else
-                       {
-                           fileContent += s + " ";
-                           pageNumbers.Add(Convert.ToInt32(s));
-                       }
-                   }
-                   pagesToExtract.Add(name, pageNumbers);
-                   MessageBox.Show(fileContent, "File Name will be: " + name, MessageBoxButtons.OK);
-               }
+                string[] data = listbDatasetItem.ToString().Split(':');
+                if (data.Length != 0)
+                {
+                    List<int> pageNumbers = PageIdentifier(data[1]);
+                    string name = data[0];
+
+                    pagesToExtract.Add(name, pageNumbers);
+                    MessageBox.Show(ConvertPageNumbersToString(pageNumbers), "File Name will be: " + name, MessageBoxButtons.OK);
+                }
             }
+            return pagesToExtract;
+        }
 
-            if (pagesToExtract.Count != 0)
+        private List<int> PageIdentifier(string pages)
+        {
+            List<int> pageNumbers = new List<int>();
+            foreach (string s in pages.Split(','))
             {
-               PdfDocument pd = _pdfDocHandler.GetPdfDocumentFromPath(filePath);
-               foreach (var item in _pageExtractor.PageExtraction(pd, pagesToExtract))
-               {
-                   PdfDocument newPDF = new PdfDocument();
-                   foreach (var page in item.Value)
-                   {
-                       newPDF.AddPage(page);
-                   }
+                if (s.Contains('-'))
+                {
+                    string[] range = s.Split('-');
+                    int startIdx = Int32.Parse(range[0]);
+                    int endIdx = Int32.Parse(range[1]);
+                    while (startIdx <= endIdx)
+                    {
+                        pageNumbers.Add(startIdx);
+                        startIdx++;
+                    }
+                }
+                else
+                {
+                    pageNumbers.Add(Convert.ToInt32(s));
+                }
+            }
+            return pageNumbers;
+        }
 
-                   _pdfDocHandler.SavePdfFile(item.Key + ".pdf", newPDF);
-               }
+        private string ConvertPageNumbersToString(List<int> pageNumbers)
+        {
+            string fileContent = "";
+            foreach (int pn in pageNumbers)
+            {
+                fileContent += pn + ", ";
+            }
+            return fileContent;
+        }
+
+        private void CreateOutputFolder()
+        {
+            if (!Directory.Exists(outputFolder))
+            {
+                Directory.CreateDirectory(outputFolder);
             }
         }
+       
     }
 }

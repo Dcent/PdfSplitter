@@ -40,6 +40,8 @@
             this.txtbPages = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.outputLbl = new System.Windows.Forms.Label();
+            this.outputBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -61,8 +63,9 @@
             this.lblFilePath.AutoSize = true;
             this.lblFilePath.Location = new System.Drawing.Point(93, 17);
             this.lblFilePath.Name = "lblFilePath";
-            this.lblFilePath.Size = new System.Drawing.Size(0, 13);
+            this.lblFilePath.Size = new System.Drawing.Size(31, 13);
             this.lblFilePath.TabIndex = 1;
+            this.lblFilePath.Text = "Input";
             // 
             // btnSplit
             // 
@@ -135,11 +138,32 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Page Range";
             // 
+            // outputLbl
+            // 
+            this.outputLbl.AutoSize = true;
+            this.outputLbl.Location = new System.Drawing.Point(93, 44);
+            this.outputLbl.Name = "outputLbl";
+            this.outputLbl.Size = new System.Drawing.Size(37, 13);
+            this.outputLbl.TabIndex = 10;
+            this.outputLbl.Text = "output";
+            // 
+            // outputBtn
+            // 
+            this.outputBtn.Location = new System.Drawing.Point(12, 39);
+            this.outputBtn.Name = "outputBtn";
+            this.outputBtn.Size = new System.Drawing.Size(75, 23);
+            this.outputBtn.TabIndex = 11;
+            this.outputBtn.Text = "Output";
+            this.outputBtn.UseVisualStyleBackColor = true;
+            this.outputBtn.Click += new System.EventHandler(this.outputBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.outputBtn);
+            this.Controls.Add(this.outputLbl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtbPages);
@@ -171,6 +195,8 @@
         private System.Windows.Forms.TextBox txtbPages;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label outputLbl;
+        private System.Windows.Forms.Button outputBtn;
     }
 }
 

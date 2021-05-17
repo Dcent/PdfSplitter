@@ -9,4 +9,4 @@ Bulk pdf split
 Thread splitting to speed up
 OCR creation and save in Pdf, using google tesseract ocr
 
-Write in issues section for more suggestions or found bugs
+Write in issues section for found bugs and Discussions for more suggestions
